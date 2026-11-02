@@ -1,5 +1,5 @@
 -- =====================================================================
--- Geology Collection database
+-- Binghamton Mineral Explorer database
 -- Run this whole file once in Supabase: Dashboard -> SQL Editor -> New query
 -- =====================================================================
 
