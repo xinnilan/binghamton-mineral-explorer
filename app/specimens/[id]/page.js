@@ -7,6 +7,7 @@ import { supabase, imageUrl, IMAGE_BUCKET } from "@/lib/supabase";
 import { useAuth } from "@/components/AuthProvider";
 import { RockMap } from "@/components/maps";
 import QRCodeBox from "@/components/QRCodeBox";
+import { Formula, crystalSystemLabel } from "@/lib/mineralogy";
 
 export default function SpecimenPage() {
   const { id } = useParams();
@@ -72,6 +73,15 @@ export default function SpecimenPage() {
         </>
       ) : (
         <>
+          <h2>Properties</h2>
+          <dl className="properties">
+            <dt>Formula</dt>
+            <dd>{specimen.formula ? <Formula value={specimen.formula} /> : <span className="muted">Not specified</span>}</dd>
+            <dt>Crystal system</dt>
+            <dd>{specimen.crystal_system ? crystalSystemLabel(specimen.crystal_system) : <span className="muted">Not specified</span>}</dd>
+            <dt>Member of</dt>
+            <dd>{specimen.member_of || <span className="muted">Not specified</span>}</dd>
+          </dl>
           <h2>Location</h2>
           <p>{specimen.room_number ? `Room ${specimen.room_number}` : <span className="muted">No room listed.</span>}</p>
         </>

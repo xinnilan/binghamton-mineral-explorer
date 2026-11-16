@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { imageUrl } from "@/lib/supabase";
+import { Formula } from "@/lib/mineralogy";
 
 export default function SpecimenCard({ specimen, children }) {
   const src = imageUrl(specimen.image_path);
@@ -16,6 +17,7 @@ export default function SpecimenCard({ specimen, children }) {
         )}
         <h3>{specimen.name}</h3>
       </Link>
+      {specimen.formula && <p className="small"><Formula value={specimen.formula} /></p>}
       {specimen.catalog_number && <p className="muted small">#{specimen.catalog_number}</p>}
       {subtitle && <p className="muted small">{subtitle}</p>}
       {children}

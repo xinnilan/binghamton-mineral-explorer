@@ -18,7 +18,12 @@ export default function SearchPage() {
     const { data } = await supabase
       .from("specimens")
       .select("*")
-      .or(`name.ilike.${pattern},catalog_number.ilike.${pattern},description.ilike.${pattern},location_note.ilike.${pattern},room_number.ilike.${pattern}`)
+      .or(
+        ["name", "catalog_number", "description", "location_note", "room_number",
+          "formula", "crystal_system", "member_of"]
+          .map((field) => `${field}.ilike.${pattern}`)
+          .join(",")
+      )
       .order("name")
       .limit(100);
     setResults(data ?? []);
@@ -29,7 +34,7 @@ export default function SearchPage() {
       <h1>Search</h1>
       <form onSubmit={handleSearch} className="search-bar">
         <input type="search" value={query} onChange={(e) => setQuery(e.target.value)}
-          placeholder="Name, ID number, description, room…" aria-label="Search" />
+          placeholder="Name, ID number, formula, group, room…" aria-label="Search" />
         <button type="submit">Search</button>
       </form>
       {results && (
